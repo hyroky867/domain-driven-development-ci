@@ -1,0 +1,28 @@
+parameters:
+    excludePaths:
+        analyseAndScan:
+            - */Config/*
+            - */Views/*
+            - */tests/_support/Database/*
+    tmpDir: build/phpstan
+    level: 8
+    paths:
+        - app
+        - packages
+        - tests
+    bootstrapFiles:
+        - vendor/codeigniter4/framework/system/Test/bootstrap.php
+#    ignoreErrors:
+#        - '#Call to an undefined method .+\\Entities\\[A-Za-z]+::(add|has|set)[A-Za-z]+\(\)#'
+#        - '#Call to an undefined static method Config\\Services::[A-Za-z]+\(\)#'
+#        - '#Cannot access property [\$a-z_]+ on (array|object)#'
+#        - '#Cannot call method [A-Za-z_]+\(\) on (array|object)#'
+#    universalObjectCratesClasses:
+#        - CodeIgniter\Entity
+#        - Faker\Generator
+#    scanDirectories:
+#        - vendor/codeigniter4/framework/system/Helpers
+#    dynamicConstantNames:
+#        - APP_NAMESPACE
+#        - CI_DEBUG
+#        - ENVIRONMENT
