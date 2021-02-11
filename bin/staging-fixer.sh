@@ -1,6 +1,10 @@
 #!/bin/bash
 
+PHPCBF_BIN=./vendor/bin/phpcbf
 PHPCS_CODING_STANDARD=./phpcs.xml
+
+PHP_CS_FIXER_BIN=./vendor/bin/php-cs-fixer
+PHP_CS_FIXER_RULES=.php_cs.fix
 
 # stolen from template file
 if git rev-parse --verify HEAD
@@ -11,13 +15,6 @@ else
     # @todo: ここあとで調べて適切なハッシュを入れる
     against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
-
-CONFIG_FILE=$(dirname $0)/pre-commit-config
-if [ -e $CONFIG_FILE ]; then
-    . $CONFIG_FILE
-fi
-
-PHPCBF_BIN=./vendor/bin/phpcbf
 
 FILES=$(git diff-index --name-only --cached --diff-filter=ACMR $against -- )
 
@@ -85,5 +82,11 @@ do
     fi
 done
 
+echo $STAGED_FILES
+
 echo "$PHPCBF_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES"
 OUTPUT=$($PHPCBF_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES)
+
+# stagedだけに絞ることはできない
+echo "$PHP_CS_FIXER_BIN fix -v --path-mode=intersection --config $PHP_CS_FIXER_RULES $STAGED_FILES"
+$PHP_CS_FIXER_BIN fix -v --path-mode=intersection --config $PHP_CS_FIXER_RULES .

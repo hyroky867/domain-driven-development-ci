@@ -1,13 +1,18 @@
 #!/bin/bash
 
 PHPCS_BIN=./vendor/bin/phpcs
-PHPSTAN_BIN=./vendor/bin/phpstan
-PHPMD_BIN=./vendor/bin/phpmd
 PHPCS_CODING_STANDARD=phpcs.xml
 PHPCS_IGNORE=
-TMP_STAGING="./.tmp_staging/"
+
+PHPMD_BIN=./vendor/bin/phpmd
 PHPMD_RULES=phpmd.xml
 PHPMD_EXCLUDE="app/Views/"
+
+PHP_CS_FIXER_BIN=./vendor/bin/php-cs-fixer
+PHP_CS_FIXER_RULES=.php_cs.warning
+
+PHPSTAN_BIN=./vendor/bin/phpstan
+TMP_STAGING="./.tmp_staging/"
 
 # parse config
 CONFIG_FILE=$(dirname $0)/pre-commit-config
@@ -22,8 +27,14 @@ if [ ! -x $PHPCS_BIN ]; then
 fi
 
 # simple check if mess detector is set up correctly
-if [ ! -x $PHPCS_BIN ]; then
+if [ ! -x $PHPMD_BIN ]; then
     echo "PHP Mess Detector bin not found or executable -> $PHPMD_BIN"
+    exit 1
+fi
+
+# simple check if mess detector is set up correctly
+if [ ! -x $PHP_CS_FIXER_BIN ]; then
+    echo "PHP CS Fixer bin not found or executable -> $PHP_CS_FIXER_BIN"
     exit 1
 fi
 
@@ -143,8 +154,6 @@ if [ $PHPCS_RETVAL -ne 0 ]; then
     else
         echo "$PHPCS_OUTPUT"
     fi
-    # delete temporary copy of staging area
-    rm -rf $TMP_STAGING
 
     exit $PHPCS_RETVAL
 fi
@@ -162,10 +171,25 @@ if [ $PHPMD_RETVAL -ne 0 ]; then
     else
         echo "$PHPMD_OUTPUT"
     fi
-    # delete temporary copy of staging area
-    rm -rf $TMP_STAGING
     exit $PHPMD_RETVAL
 fi
+
+# PHP CS Fixer
+# stagedだけに絞ることはできない
+echo "$PHP_CS_FIXER_BIN fix -v --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES ."
+PHP_CS_FIXER_OUTPUT=$($PHP_CS_FIXER_BIN fix -v --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES .)
+PHP_CS_FIXER_RETVAL=$?
+
+if [ $PHP_CS_FIXER_RETVAL -ne 0 ]; then
+    if [ "$FILE_OUTPUT" == "1" ]; then
+        echo "$PHP_CS_FIXER_OUTPUT"
+        echo "$PHP_CS_FIXER_OUTPUT" > php-cs-fixer.log
+    else
+        echo "$PHP_CS_FIXER_OUTPUT"
+    fi
+    exit $PHP_CS_FIXER_RETVAL
+fi
+
 
 # Larastan
 # https://github.com/baopham/laravel-dynamodb の関係でlevelを4に変更
