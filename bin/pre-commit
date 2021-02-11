@@ -12,13 +12,8 @@ PHP_CS_FIXER_BIN=./vendor/bin/php-cs-fixer
 PHP_CS_FIXER_RULES=.php_cs.warning
 
 PHPSTAN_BIN=./vendor/bin/phpstan
+PHPSTAN_CONFIG=phpstan.neon
 TMP_STAGING="./.tmp_staging/"
-
-# parse config
-CONFIG_FILE=$(dirname $0)/pre-commit-config
-if [ -e $CONFIG_FILE ]; then
-    . $CONFIG_FILE
-fi
 
 # simple check if code sniffer is set up correctly
 if [ ! -x $PHPCS_BIN ]; then
@@ -142,71 +137,69 @@ done
 echo `pwd`
 
 # CodeSniffer
-
-echo "$PHPCS_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES"
-PHPCS_OUTPUT=$($PHPCS_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES)
-PHPCS_RETVAL=$?
-
-if [ $PHPCS_RETVAL -ne 0 ]; then
-    if [ "$FILE_OUTPUT" == "1" ]; then
-        echo "$PHPCS_OUTPUT"
-        echo "$PHPCS_OUTPUT" > phpcs.log
-    else
-        echo "$PHPCS_OUTPUT"
-    fi
-
-    exit $PHPCS_RETVAL
-fi
-
-# MessDetector
-
-echo "$PHPMD_BIN $TMP_STAGING text $PHPMD_RULES $EXCLUDE"
-PHPMD_OUTPUT=$($PHPMD_BIN $TMP_STAGING text $PHPMD_RULES $EXCLUDE)
-PHPMD_RETVAL=$?
-
-if [ $PHPMD_RETVAL -ne 0 ]; then
-    if [ "$FILE_OUTPUT" == "1" ]; then
-        echo "$PHPMD_OUTPUT"
-        echo "$PHPMD_OUTPUT" > phpmd.log
-    else
-        echo "$PHPMD_OUTPUT"
-    fi
-    exit $PHPMD_RETVAL
-fi
-
-# PHP CS Fixer
-# stagedだけに絞ることはできない
-echo "$PHP_CS_FIXER_BIN fix -v --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES ."
-PHP_CS_FIXER_OUTPUT=$($PHP_CS_FIXER_BIN fix -v --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES .)
-PHP_CS_FIXER_RETVAL=$?
-
-if [ $PHP_CS_FIXER_RETVAL -ne 0 ]; then
-    if [ "$FILE_OUTPUT" == "1" ]; then
-        echo "$PHP_CS_FIXER_OUTPUT"
-        echo "$PHP_CS_FIXER_OUTPUT" > php-cs-fixer.log
-    else
-        echo "$PHP_CS_FIXER_OUTPUT"
-    fi
-    exit $PHP_CS_FIXER_RETVAL
-fi
-
-
-# Larastan
-# https://github.com/baopham/laravel-dynamodb の関係でlevelを4に変更
-#echo "php src/artisan code:analyse --paths='.tmp_stating' --error-format table --level=4"
-#PHPSTAN_OUTPUT=$(php src/artisan code:analyse --paths='.tmp_staging/src/app' --error-format table --level=4)
-#PHPSTAN_RETVAL=$?
 #
-#if [ $PHPSTAN_RETVAL -ne 0 ]; then
+#echo "$PHPCS_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES"
+#PHPCS_OUTPUT=$($PHPCS_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES)
+#PHPCS_RETVAL=$?
+#
+#if [ $PHPCS_RETVAL -ne 0 ]; then
 #    if [ "$FILE_OUTPUT" == "1" ]; then
-#        echo "$PHPSTAN_OUTPUT"
-#        echo "$PHPSTAN_OUTPUT" > larastan.log
+#        echo "$PHPCS_OUTPUT"
+#        echo "$PHPCS_OUTPUT" > phpcs.log
 #    else
-#        echo "$PHPSTAN_OUTPUT"
+#        echo "$PHPCS_OUTPUT"
 #    fi
-#    # delete temporary copy of staging area
-#    rm -rf $TMP_STAGING
-#    exit $PHPSTAN_RETVAL
+#
+#    exit $PHPCS_RETVAL
 #fi
+#
+## MessDetector
+#
+#echo "$PHPMD_BIN $TMP_STAGING text $PHPMD_RULES $EXCLUDE"
+#PHPMD_OUTPUT=$($PHPMD_BIN $TMP_STAGING text $PHPMD_RULES $EXCLUDE)
+#PHPMD_RETVAL=$?
+#
+#if [ $PHPMD_RETVAL -ne 0 ]; then
+#    if [ "$FILE_OUTPUT" == "1" ]; then
+#        echo "$PHPMD_OUTPUT"
+#        echo "$PHPMD_OUTPUT" > phpmd.log
+#    else
+#        echo "$PHPMD_OUTPUT"
+#    fi
+#    exit $PHPMD_RETVAL
+#fi
+#
+## PHP CS Fixer
+## stagedだけに絞ることはできない
+#echo "$PHP_CS_FIXER_BIN fix -v --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES ."
+#PHP_CS_FIXER_OUTPUT=$($PHP_CS_FIXER_BIN fix -v --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES .)
+#PHP_CS_FIXER_RETVAL=$?
+#
+#if [ $PHP_CS_FIXER_RETVAL -ne 0 ]; then
+#    if [ "$FILE_OUTPUT" == "1" ]; then
+#        echo "$PHP_CS_FIXER_OUTPUT"
+#        echo "$PHP_CS_FIXER_OUTPUT" > php-cs-fixer.log
+#    else
+#        echo "$PHP_CS_FIXER_OUTPUT"
+#    fi
+#    exit $PHP_CS_FIXER_RETVAL
+#fi
+
+# PHPStan
+echo "php src/artisan code:analyse --paths='.tmp_stating' --error-format table --level=4"
+PHPSTAN_OUTPUT=$($PHPSTAN_BIN analyse -c $PHPSTAN_CONFIG $TMP_STAGING)
+PHPSTAN_RETVAL=$?
+
+if [ $PHPSTAN_RETVAL -ne 0 ]; then
+    if [ "$FILE_OUTPUT" == "1" ]; then
+        echo "$PHPSTAN_OUTPUT"
+        echo "$PHPSTAN_OUTPUT" > larastan.log
+    else
+        echo "$PHPSTAN_OUTPUT"
+    fi
+    # delete temporary copy of staging area
+    rm -rf $TMP_STAGING
+    exit $PHPSTAN_RETVAL
+fi
 
 exit
