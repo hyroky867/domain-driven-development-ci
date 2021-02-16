@@ -186,7 +186,7 @@ echo `pwd`
 #fi
 
 # PHPStan
-echo "php src/artisan code:analyse --paths='.tmp_stating' --error-format table --level=4"
+echo "$PHPSTAN_BIN analyse -c $PHPSTAN_CONFIG $TMP_STAGING"
 PHPSTAN_OUTPUT=$($PHPSTAN_BIN analyse -c $PHPSTAN_CONFIG $TMP_STAGING)
 PHPSTAN_RETVAL=$?
 

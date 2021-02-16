@@ -11,8 +11,13 @@ class News extends Model
     protected $table = 'news';
 
     /**
-     * @return array|null
+     * @var string[]
      */
+    protected $allowedFields = [
+        'title',
+        'slug',
+        'body',
+    ];
 
     /**
      * @return array<int, array>
@@ -24,7 +29,8 @@ class News extends Model
 
     /**
      * @param string $slug
-     * @return array<int, array>|null
+     *
+     * @return array<string, string>|null
      */
     public function firstBySlug(string $slug): ?array
     {
