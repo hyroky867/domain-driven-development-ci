@@ -108,5 +108,25 @@ class Database extends Config
             'failover' => [],
             'port'     => 3306,
         ];
+
+        $this->tests = [
+            'DSN'      => '',
+            'hostname' => env('database.tests.hostname'),
+            'username' => env('database.tests.username'),
+            'password' => env('database.tests.password'),
+            'database' => env('database.tests.database'),
+            'DBDriver' => 'MySQLi',
+            'DBPrefix' => '',
+            'pConnect' => false,
+            'DBDebug'  => (ENVIRONMENT !== 'production'),
+            'charset'  => 'utf8',
+            'DBCollat' => 'utf8_general_ci',
+            'swapPre'  => '',
+            'encrypt'  => false,
+            'compress' => false,
+            'strictOn' => false,
+            'failover' => [],
+            'port'     => 3306,
+        ];
     }
 }
