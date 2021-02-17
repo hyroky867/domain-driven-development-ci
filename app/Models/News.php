@@ -39,6 +39,7 @@ class News extends Model
                 'slug' => $slug,
             ])
             ->first();
+
         if (is_object($result)) {
             return (array) $result;
         }

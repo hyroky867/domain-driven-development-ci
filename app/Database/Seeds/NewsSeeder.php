@@ -14,6 +14,7 @@ class NewsSeeder extends Seeder
             [
                 'title' => 'Elvis sighted',
                 'slug' => 'elvis-sighted',
+                // phpcs:ignore Generic.Files.LineLength.TooLong
                 'body' => 'Elvis was sighted at the Podunk internet cafe. It looked like he was writing a CodeIgniter app.',
             ],
             [
@@ -25,7 +26,7 @@ class NewsSeeder extends Seeder
                 'title' => 'Caffeination, Yes!',
                 'slug' => 'caffeination-yes',
                 'body' => 'World\'s largest coffee shop open onsite nested coffee shop for staff only.',
-            ]
+            ],
         ];
 
         $this->db->table('news')->insertBatch($data);
