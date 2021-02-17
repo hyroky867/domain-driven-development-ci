@@ -138,52 +138,52 @@ echo `pwd`
 
 # CodeSniffer
 #
-#echo "$PHPCS_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES"
-#PHPCS_OUTPUT=$($PHPCS_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES)
-#PHPCS_RETVAL=$?
-#
-#if [ $PHPCS_RETVAL -ne 0 ]; then
-#    if [ "$FILE_OUTPUT" == "1" ]; then
-#        echo "$PHPCS_OUTPUT"
-#        echo "$PHPCS_OUTPUT" > phpcs.log
-#    else
-#        echo "$PHPCS_OUTPUT"
-#    fi
-#
-#    exit $PHPCS_RETVAL
-#fi
-#
-## MessDetector
-#
-#echo "$PHPMD_BIN $TMP_STAGING text $PHPMD_RULES $EXCLUDE"
-#PHPMD_OUTPUT=$($PHPMD_BIN $TMP_STAGING text $PHPMD_RULES $EXCLUDE)
-#PHPMD_RETVAL=$?
-#
-#if [ $PHPMD_RETVAL -ne 0 ]; then
-#    if [ "$FILE_OUTPUT" == "1" ]; then
-#        echo "$PHPMD_OUTPUT"
-#        echo "$PHPMD_OUTPUT" > phpmd.log
-#    else
-#        echo "$PHPMD_OUTPUT"
-#    fi
-#    exit $PHPMD_RETVAL
-#fi
-#
-## PHP CS Fixer
-## stagedだけに絞ることはできない
-#echo "$PHP_CS_FIXER_BIN fix -v --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES ."
-#PHP_CS_FIXER_OUTPUT=$($PHP_CS_FIXER_BIN fix -v --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES .)
-#PHP_CS_FIXER_RETVAL=$?
-#
-#if [ $PHP_CS_FIXER_RETVAL -ne 0 ]; then
-#    if [ "$FILE_OUTPUT" == "1" ]; then
-#        echo "$PHP_CS_FIXER_OUTPUT"
-#        echo "$PHP_CS_FIXER_OUTPUT" > php-cs-fixer.log
-#    else
-#        echo "$PHP_CS_FIXER_OUTPUT"
-#    fi
-#    exit $PHP_CS_FIXER_RETVAL
-#fi
+echo "$PHPCS_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES"
+PHPCS_OUTPUT=$($PHPCS_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES)
+PHPCS_RETVAL=$?
+
+if [ $PHPCS_RETVAL -ne 0 ]; then
+    if [ "$FILE_OUTPUT" == "1" ]; then
+        echo "$PHPCS_OUTPUT"
+        echo "$PHPCS_OUTPUT" > phpcs.log
+    else
+        echo "$PHPCS_OUTPUT"
+    fi
+
+    exit $PHPCS_RETVAL
+fi
+
+# MessDetector
+
+echo "$PHPMD_BIN $TMP_STAGING text $PHPMD_RULES $EXCLUDE"
+PHPMD_OUTPUT=$($PHPMD_BIN $TMP_STAGING text $PHPMD_RULES $EXCLUDE)
+PHPMD_RETVAL=$?
+
+if [ $PHPMD_RETVAL -ne 0 ]; then
+    if [ "$FILE_OUTPUT" == "1" ]; then
+        echo "$PHPMD_OUTPUT"
+        echo "$PHPMD_OUTPUT" > phpmd.log
+    else
+        echo "$PHPMD_OUTPUT"
+    fi
+    exit $PHPMD_RETVAL
+fi
+
+# PHP CS Fixer
+# stagedだけに絞ることはできない
+echo "$PHP_CS_FIXER_BIN fix -vvv --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES ."
+PHP_CS_FIXER_OUTPUT=$($PHP_CS_FIXER_BIN fix -vvv --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES .)
+PHP_CS_FIXER_RETVAL=$?
+
+if [ $PHP_CS_FIXER_RETVAL -ne 0 ]; then
+    if [ "$FILE_OUTPUT" == "1" ]; then
+        echo "$PHP_CS_FIXER_OUTPUT"
+        echo "$PHP_CS_FIXER_OUTPUT" > php-cs-fixer.log
+    else
+        echo "$PHP_CS_FIXER_OUTPUT"
+    fi
+    exit $PHP_CS_FIXER_RETVAL
+fi
 
 # PHPStan
 echo "$PHPSTAN_BIN analyse -c $PHPSTAN_CONFIG $TMP_STAGING"
