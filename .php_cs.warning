@@ -159,6 +159,7 @@ return (new PhpCsFixer\Config())->setRiskyAllowed(true)
         ->exclude([
             'app/Config',
             'app/Views',
+            'app/Database/Migrations',
             'tests/_support/Database',
             'build',
             'public',
