@@ -1,8 +1,0 @@
-{
-  "*.php": [
-    "./vendor/bin/phpcs --standard=phpcs.xml",
-    "./bin/lint-staged-phpmd.sh",
-    "php ./vendor/bin/phpstan analyse -c phpstan.neon",
-    "git add"
-  ]
-}
