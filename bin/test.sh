@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker-compose exec app /var/www/html/src/bin/phpdbg-test.sh --no-coverage ${@}
+cd ../docker-codeigniter4 && docker-compose exec app /workspace/bin/phpunit-test.sh
