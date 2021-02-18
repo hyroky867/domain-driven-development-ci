@@ -45,4 +45,17 @@ class News extends Model
         }
         return $result;
     }
+
+    /**
+     * @param int $id
+     * @return array<string, string>|null
+     */
+    public function firstById(int $id): ?array
+    {
+        $result = parent::find($id);
+        if (is_object($result)) {
+            return (array) $result;
+        }
+        return $result;
+    }
 }
