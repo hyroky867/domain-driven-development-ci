@@ -35,11 +35,8 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
-$routes->get('news', 'Web\News\GetAll::exec');
-$routes->get('news/create', 'Web\News\ShowCreate::exec');
-$routes->post('news/create', 'Web\News\Create::exec');
+$routes = Config\Routes\Web::make($routes);
 
-$routes->get('news/(:segment)', 'Web\News\SearchBySlug::exec/$1');
 $routes->get('(:any)', 'Pages::view/$1');
 
 /*
