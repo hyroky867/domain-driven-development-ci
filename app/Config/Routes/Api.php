@@ -14,6 +14,7 @@ class Api
         $routes->get('api/news/(:num)', 'Api\News\Show::exec/$1');
         $routes->post('api/news', 'Api\News\Create::exec');
         $routes->put('api/news/(:num)', 'Api\News\Update::exec/$1');
+        $routes->delete('api/news/(:num)', 'Api\News\Delete::exec/$1');
         return $routes;
     }
 }
