@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace Config;
 
-// Create a new instance of our RouteCollection class.
+use Config;
+
 $routes = \CodeIgniter\Config\Services::routes();
 
 // Load the system's routing file first, so that the app and ENVIRONMENT
@@ -35,6 +36,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+$routes = Config\Routes\Api::make($routes);
 $routes = Config\Routes\Web::make($routes);
 
 $routes->get('(:any)', 'Pages::view/$1');
