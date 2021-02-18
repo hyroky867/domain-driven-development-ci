@@ -12,6 +12,7 @@ class Api
     {
         $routes->get('api/news', 'Api\News\GetAll::exec');
         $routes->get('api/news/(:num)', 'Api\News\Show::exec/$1');
+        $routes->post('api/news', 'Api\News\Create::exec');
         return $routes;
     }
 }
