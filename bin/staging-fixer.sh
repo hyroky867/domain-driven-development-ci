@@ -88,5 +88,7 @@ echo "$PHPCBF_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODIN
 OUTPUT=$($PHPCBF_BIN -s $IGNORE_WARNINGS --standard=$PHPCS_CODING_STANDARD $ENCODING $IGNORE $SNIFFS $STAGED_FILES)
 
 # stagedだけに絞ることはできない
+echo "rm .php_cs.cache"
+rm .php_cs.cache
 echo "$PHP_CS_FIXER_BIN fix -vvv --path-mode=intersection --config $PHP_CS_FIXER_RULES $STAGED_FILES"
 $PHP_CS_FIXER_BIN fix -vvv --path-mode=intersection --config $PHP_CS_FIXER_RULES $STAGED_FILES

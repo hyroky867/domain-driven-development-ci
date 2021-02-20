@@ -171,6 +171,8 @@ fi
 
 # PHP CS Fixer
 # stagedだけに絞ることはできない
+echo "rm .php_cs.cache"
+rm .php_cs.cache
 echo "$PHP_CS_FIXER_BIN fix -vvv --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES ."
 PHP_CS_FIXER_OUTPUT=$($PHP_CS_FIXER_BIN fix -vvv --dry-run --path-mode=intersection --config $PHP_CS_FIXER_RULES .)
 PHP_CS_FIXER_RETVAL=$?
