@@ -43,6 +43,7 @@ class News extends Model
         if (is_object($result)) {
             return (array) $result;
         }
+
         return $result;
     }
 
@@ -53,9 +54,11 @@ class News extends Model
     public function firstById(int $id): ?array
     {
         $result = parent::find($id);
+
         if (is_object($result)) {
             return (array) $result;
         }
+
         return $result;
     }
 }

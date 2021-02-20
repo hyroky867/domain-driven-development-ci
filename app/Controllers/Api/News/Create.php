@@ -24,6 +24,7 @@ class Create extends ApiController
         ]);
 
         $errors = $this->validator->getErrors();
+
         if ($errors !== []) {
             return parent::failValidation($errors);
         }
@@ -31,6 +32,7 @@ class Create extends ApiController
         $model = new Models\News();
         $result = $model->save([
             'title' => $this->request->getPost('title'),
+
             'slug' => url_title($this->request->getPost('title'), '-', true),
             'body' => $this->request->getPost('body'),
         ]);

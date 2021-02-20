@@ -25,6 +25,7 @@ class ApiController extends BaseController
     public function failValidation(array $errors): Response
     {
         $errors = json_encode($errors);
+
         if ($errors === false) {
             return $this->failServerError();
         }

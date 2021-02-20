@@ -14,8 +14,8 @@
         "phpunit/phpunit": "^9.1",
         "squizlabs/php_codesniffer": "^3.5",
         "phpmd/phpmd": "@stable",
-        "phpstan/phpstan": "^0.12.76",
-        "friendsofphp/php-cs-fixer": "^2.18"
+        "phpstan/phpstan": "^0.12.77",
+        "friendsofphp/php-cs-fixer": "^2.18.2"
     },
     "suggest": {
         "ext-fileinfo": "Improves mime type detection for files"
@@ -24,6 +24,7 @@
         "psr-4": {
             "App\\": "app",
             "Config\\": "app/Config",
+            "Package\\": "package",
             "Tests\\": "tests"
         },
         "exclude-from-classmap": [

@@ -14,14 +14,14 @@ class SearchBySlug extends BaseController
     {
         $error_message = "Cannot find the news item: {$slug}";
 
-        if (is_null($slug)) {
+        if ($slug === null) {
             throw new PageNotFoundException($error_message);
         }
 
         $model = new Models\News();
         $news = $model->firstBySlug($slug);
 
-        if (is_null($news)) {
+        if ($news === null) {
             throw new PageNotFoundException();
         }
 

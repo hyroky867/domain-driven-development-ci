@@ -19,7 +19,7 @@ class Show extends ApiController
         $model = new Models\News();
         $news = $model->firstById($id);
 
-        if (is_null($news)) {
+        if ($news === null) {
             return parent::failNotFound();
         }
 

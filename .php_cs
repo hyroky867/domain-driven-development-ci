@@ -103,7 +103,7 @@ return (new PhpCsFixer\Config())->setRiskyAllowed(true)
         'no_whitespace_in_blank_line' => true,
         'normalize_index_brace' => true,
         'object_operator_without_whitespace' => true,
-        'ordered_class_elements' => true,
+        'ordered_class_elements' => false,
         'ordered_imports' => true,
         'php_unit_construct' => true,
         'php_unit_dedicate_assert' => true,

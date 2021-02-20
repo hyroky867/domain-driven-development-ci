@@ -6,7 +6,6 @@ namespace App\Commands;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
-use CodeIgniter\CLI\Exceptions\CLIException;
 
 class AppInfo extends BaseCommand
 {
@@ -21,7 +20,7 @@ class AppInfo extends BaseCommand
      */
     public function run(array $params): void
     {
-        $php_version_color = CLI::color((string) phpversion(), 'yellow');
+        $php_version_color = CLI::color((string) PHP_VERSION, 'yellow');
         CLI::write("PHP Version: {$php_version_color}");
 
         $ci_version_color = CLI::color(\CodeIgniter\CodeIgniter::CI_VERSION, 'yellow');

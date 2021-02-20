@@ -24,13 +24,15 @@ class Update extends ApiController
         ]);
 
         $errors = $this->validator->getErrors();
+
         if ($errors !== []) {
             return parent::failValidation($errors);
         }
 
         $model = new Models\News();
         $news = $model->find($id);
-        if (is_null($news)) {
+
+        if ($news === null) {
             return parent::failNotFound();
         }
 
@@ -38,8 +40,9 @@ class Update extends ApiController
         $result = $model->update($id, [
             'title' => $input['title'],
             'slug' => url_title($input['title'], '-', true),
-            'body' => $input['body']
+            'body' => $input['body'],
         ]);
+
         if (!$result) {
             return parent::failServerError();
         }

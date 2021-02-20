@@ -14,10 +14,12 @@ class Delete extends ApiController
     {
         $model = new Models\News();
         $news = $model->find($id);
-        if (is_null($news)) {
+
+        if ($news === null) {
             return parent::failNotFound();
         }
         $result = $model->delete($id);
+
         if (!$result) {
             return parent::failServerError();
         }
@@ -26,7 +28,7 @@ class Delete extends ApiController
             'error' => null,
             'messages' => [
                 'success' => 'News successfully deleted',
-            ]
+            ],
         ]);
     }
 }

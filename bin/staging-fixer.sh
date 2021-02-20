@@ -4,7 +4,7 @@ PHPCBF_BIN=./vendor/bin/phpcbf
 PHPCS_CODING_STANDARD=./phpcs.xml
 
 PHP_CS_FIXER_BIN=./vendor/bin/php-cs-fixer
-PHP_CS_FIXER_RULES=.php_cs.fix
+PHP_CS_FIXER_RULES=.php_cs
 
 # stolen from template file
 if git rev-parse --verify HEAD

@@ -7,6 +7,7 @@ namespace App\Controllers\Web\News;
 use App\Controllers\BaseController;
 use App\Models;
 use CodeIgniter\Validation\Exceptions\ValidationException;
+use LogicException;
 
 class Create extends BaseController
 {
@@ -33,8 +34,9 @@ class Create extends BaseController
             'slug' => url_title($this->request->getPost('title'), '-', true),
             'body' => $this->request->getPost('body'),
         ]);
+
         if (!$result) {
-            throw new \LogicException('execute failed');
+            throw new LogicException('execute failed');
         }
         echo view('news/success');
     }

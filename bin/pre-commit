@@ -9,7 +9,7 @@ PHPMD_RULES=phpmd.xml
 PHPMD_EXCLUDE="app/Views/"
 
 PHP_CS_FIXER_BIN=./vendor/bin/php-cs-fixer
-PHP_CS_FIXER_RULES=.php_cs.warning
+PHP_CS_FIXER_RULES=.php_cs
 
 PHPSTAN_BIN=./vendor/bin/phpstan
 PHPSTAN_CONFIG=phpstan.neon
@@ -186,6 +186,9 @@ if [ $PHP_CS_FIXER_RETVAL -ne 0 ]; then
 fi
 
 # PHPStan
+echo "$PHPSTAN_BIN clear-result-cache"
+$PHPSTAN_BIN clear-result-cache
+
 echo "$PHPSTAN_BIN analyse -c $PHPSTAN_CONFIG $TMP_STAGING"
 PHPSTAN_OUTPUT=$($PHPSTAN_BIN analyse -c $PHPSTAN_CONFIG $TMP_STAGING)
 PHPSTAN_RETVAL=$?

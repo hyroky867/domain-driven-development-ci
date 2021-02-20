@@ -2,7 +2,10 @@
 <ruleset name="Custom_PSR12">
     <description>Custom ruleset Based on PSR12</description>
     <!-- 参照するルール( `PSR12` ) -->
-    <rule ref="PSR12" />
+    <rule ref="PSR12">
+        <exclude name="Squiz.Functions.MultiLineFunctionDeclaration.Indent" />
+        <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact" />
+    </rule>
 
     <!-- 拡張子を指定する(.php) -->
     <arg name="extensions" value="php" />
