@@ -27,6 +27,6 @@ final class UserNameTest extends PHPUnitTestCase
     {
         $value = '承太郎';
         $actual = new UserName($value);
-        $this->assertSame($value, $actual->value);
+        parent::assertSame($value, $actual->value);
     }
 }

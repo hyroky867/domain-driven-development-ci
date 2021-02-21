@@ -16,6 +16,6 @@ final class UserIdTest extends PHPUnitTestCase
     {
         $value = 'z2020';
         $actual = new UserId($value);
-        $this->assertSame($value, $actual->value);
+        parent::assertSame($value, $actual->value);
     }
 }
