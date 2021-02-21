@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Package\Part2;
+namespace Tests\Package;
 
-use Package\Part2\ReadOnlyTrait;
+use Package\ReadOnlyTrait;
 
 /**
  * @property-read int $hoge

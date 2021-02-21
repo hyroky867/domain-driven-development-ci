@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Package\Part2;
+namespace Package;
 
 use Exception;
 use InvalidArgumentException;
