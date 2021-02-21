@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Package\Part2;
 
 use InvalidArgumentException;
+use Package\ReadOnlyTrait;
 
 /**
  * @property-read float $amount

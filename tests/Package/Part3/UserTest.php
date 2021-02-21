@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Package\Part2;
+namespace Tests\Package\Part3;
 
-use Package\Part2\FullName;
-use Package\Part2\UserName;
+use Package\Part3\User;
 use Tests\PHPUnitTestCase;
 
-final class UserNameTest extends PHPUnitTestCase
+final class UserTest extends PHPUnitTestCase
 {
     /**
      * @test
@@ -17,7 +16,7 @@ final class UserNameTest extends PHPUnitTestCase
     {
         parent::expectException(\InvalidArgumentException::class);
         parent::expectExceptionMessage('ユーザ名は3文字以上です');
-        new UserName('仗助');
+        new User('仗助');
     }
 
     /**
@@ -26,7 +25,7 @@ final class UserNameTest extends PHPUnitTestCase
     public function construct_3文字以上の場合、値がセットされるべき(): void
     {
         $value = '承太郎';
-        $actual = new UserName($value);
-        parent::assertSame($value, $actual->value);
+        $actual = new User($value);
+        parent::assertSame($value, $actual->name);
     }
 }

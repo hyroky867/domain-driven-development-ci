@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Package\Part2;
 
+use Package\ReadOnlyTrait;
+
 /**
  * @property-read string $product_code
  * @property-read string $branch
