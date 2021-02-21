@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Package\Part4;
+namespace Tests\Package\Part4\ValueObjects;
 
-use Package\Part4\UserName;
+use Package\Part4\ValueObjects\UserName;
 use Tests\PHPUnitTestCase;
 
 final class UserNameTest extends PHPUnitTestCase

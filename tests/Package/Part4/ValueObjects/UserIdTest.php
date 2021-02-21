@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Package\Part4;
+namespace Tests\Package\Part4\ValueObjects;
 
-use Package\Part4\UserId;
+use Package\Part4\ValueObjects\UserId;
 use Tests\PHPUnitTestCase;
 
 final class UserIdTest extends PHPUnitTestCase

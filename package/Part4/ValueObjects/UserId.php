@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Package\Part4;
+namespace Package\Part4\ValueObjects;
 
 use Package\ReadOnlyTrait;
 

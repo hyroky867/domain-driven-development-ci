@@ -2,14 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Package\Part4;
+namespace Package\Part4\ValueObjects;
 
+use InvalidArgumentException;
 use Package\ReadOnlyTrait;
 
 /**
  * @property-read string $value
  */
-final class UserName
+final class UserName implements ValueObjectInterface
 {
     use ReadOnlyTrait;
 
@@ -18,7 +19,7 @@ final class UserName
     public function __construct(string $value)
     {
         if (mb_strlen($value) < 3) {
-            throw new \InvalidArgumentException('ユーザ名は3文字以上です');
+            throw new InvalidArgumentException('ユーザ名は3文字以上です');
         }
         $this->value = $value;
     }
