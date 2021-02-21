@@ -33,8 +33,12 @@ final class User implements EntityInterface
         return get_object_vars($this);
     }
 
-    public function exists(self $user): bool
+    public function changeUserName(UserName $name): bool
     {
-        return $this->toArray() === $user->toArray();
+        if ($this->name->value !== $name->value) {
+            $this->name = $name;
+            return true;
+        }
+        return false;
     }
 }

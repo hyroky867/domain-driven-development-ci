@@ -23,20 +23,19 @@ final class UserTest extends PHPUnitTestCase
     /**
      * @test
      */
-    public function exists(): void
+    public function changeUserName(): void
     {
-        $check_id = new UserId('check');
-        $check_name = new UserName('checker');
-        $check_obj = new User($check_id, $check_name);
+        $id = new UserId('id');
+        $name = new UserName('承太郎');
+        $user = new User($id, $name);
 
-        $user_id = new UserId('id');
-        $user_name = new UserName('承太郎');
-        $user = new User($user_id, $user_name);
-
-        $actual_true = $check_obj->exists($check_obj);
+        $actual_true = $user->changeUserName(new UserName('hoge'));
         parent::assertTrue($actual_true);
 
-        $actual_false = $check_obj->exists($user);
+        $name = new UserName('承太郎');
+        $user = new User($id, $name);
+
+        $actual_false = $user->changeUserName($name);
         parent::assertFalse($actual_false);
     }
 }
