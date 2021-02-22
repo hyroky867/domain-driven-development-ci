@@ -33,4 +33,17 @@ final class User implements UserInterface
         }
         return null;
     }
+
+    public function create(Entities\User $user): bool
+    {
+        $result = $this->model->insert([
+            'user_id' => $user->id->value,
+            'name' => $user->name->value,
+        ]);
+
+        if ($result === 1) {
+            return true;
+        }
+        return false;
+    }
 }
