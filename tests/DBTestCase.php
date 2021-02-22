@@ -21,14 +21,10 @@ class DBTestCase extends CIDatabaseTestCase
         helper('test');
     }
 
-    public function truncate(string $table): bool
+    public function truncate(string $table): void
     {
-        $result = \Config\Database::connect()
+        \Config\Database::connect()
             ->table($table)
             ->truncate();
-        if ($result === true) {
-            return true;
-        }
-        return false;
     }
 }
