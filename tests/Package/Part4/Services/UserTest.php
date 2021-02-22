@@ -48,4 +48,25 @@ final class UserTest extends DBTestCase
         $actual = $this->service->exists($user);
         parent::assertFalse($actual);
     }
+
+    /**
+     * @test
+     */
+    public function create(): void
+    {
+        $user_id = 'hogehoge';
+        $name = '承太郎';
+        $user = new Entities\User(
+            new ValueObjects\UserId($user_id),
+            new ValueObjects\UserName($name),
+        );
+
+        $actual = $this->service->create($user);
+        parent::assertTrue($actual);
+
+        parent::hasInDatabase('users', [
+            'user_id' => $user_id,
+            'name' => $name,
+        ]);
+    }
 }

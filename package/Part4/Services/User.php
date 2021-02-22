@@ -24,4 +24,9 @@ final class User
         $result = $this->user_repos->firstByUserId($user->id);
         return $result instanceof Entities\User;
     }
+
+    public function create(Entities\User $user): bool
+    {
+        return $this->user_repos->create($user);
+    }
 }
