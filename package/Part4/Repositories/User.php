@@ -20,10 +20,11 @@ final class User implements UserInterface
     {
         $result = $this->model->select([
             'user_id',
-            'name'
+            'name',
         ])
             ->where('user_id', $id->value)
             ->first();
+
         if ($result instanceof \App\Entities\User) {
             return new Entities\User(
                 new ValueObjects\UserId($result->user_id),

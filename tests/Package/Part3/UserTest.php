@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Package\Part3;
 
+use InvalidArgumentException;
 use Package\Part3\User;
 use Tests\PHPUnitTestCase;
 
@@ -14,7 +15,7 @@ final class UserTest extends PHPUnitTestCase
      */
     public function construct_3文字未満の場合、例外が返るべき(): void
     {
-        parent::expectException(\InvalidArgumentException::class);
+        parent::expectException(InvalidArgumentException::class);
         parent::expectExceptionMessage('ユーザ名は3文字以上です');
         new User('仗助');
     }
