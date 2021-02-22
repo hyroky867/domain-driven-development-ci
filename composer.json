@@ -6,7 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.4",
-        "codeigniter4/framework": "^4"
+        "codeigniter4/framework": "^4",
+        "ext-json": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9",
@@ -14,8 +15,10 @@
         "phpunit/phpunit": "^9.1",
         "squizlabs/php_codesniffer": "^3.5",
         "phpmd/phpmd": "@stable",
-        "phpstan/phpstan": "^0.12.77",
-        "friendsofphp/php-cs-fixer": "^2.18.2"
+        "phpstan/phpstan": "^0.12.78",
+        "friendsofphp/php-cs-fixer": "^2.18.2",
+        "phpstan/phpstan-strict-rules": "^0.12.9",
+        "phpstan/phpstan-phpunit": "^0.12.17"
     },
     "suggest": {
         "ext-fileinfo": "Improves mime type detection for files"
