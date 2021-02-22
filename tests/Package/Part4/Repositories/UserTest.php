@@ -5,27 +5,20 @@ declare(strict_types=1);
 namespace Tests\Package\Part4\Repositories;
 
 use App\Models;
-use CodeIgniter\Test\CIDatabaseTestCase;
 use Package\Part4\Entities;
 use Package\Part4\Repositories;
 use Package\Part4\ValueObjects;
+use Tests\DBTestCase;
 
-final class UserTest extends CIDatabaseTestCase
+final class UserTest extends DBTestCase
 {
     private Repositories\User $repository;
-
-    /**
-     * @var string
-     */
-    protected $namespace = 'App';
 
     protected function setUp(): void
     {
         parent::setUp();
-        helper('test');
-        \Config\Database::connect()
-            ->table('users')
-            ->truncate();
+        parent::truncate('users');
+
         $this->repository = new Repositories\User();
     }
 
