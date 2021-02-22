@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Package\Part2;
+namespace Package\Part4\ValueObjects;
 
 use InvalidArgumentException;
 use Package\ReadOnlyTrait;
@@ -10,7 +10,7 @@ use Package\ReadOnlyTrait;
 /**
  * @property-read string $value
  */
-final class UserName
+final class UserName implements ValueObjectInterface
 {
     use ReadOnlyTrait;
 

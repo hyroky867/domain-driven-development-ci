@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Package\Part3;
 
+use InvalidArgumentException;
 use Package\ReadOnlyTrait;
 
 /**
@@ -23,7 +24,7 @@ final class User
     public function changeName(string $name): void
     {
         if (mb_strlen($name) < 3) {
-            throw new \InvalidArgumentException('ユーザ名は3文字以上です');
+            throw new InvalidArgumentException('ユーザ名は3文字以上です');
         }
         $this->name = $name;
     }
