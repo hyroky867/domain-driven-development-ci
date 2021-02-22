@@ -1,31 +1,50 @@
 name: PHPUnit
 
-on: [push]
+on:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   test:
-    name: Test
+    name: PHP ${{ matrix.php-version }} UnitTest
 
     runs-on: ubuntu-latest
 
     strategy:
+      fail-fast: false
       matrix:
-        php-version: ['7.2', '7.3']
+        php-version: ['7.4', '8.0']
 
     steps:
       - name: Setup PHP ${{ matrix.php-version }}
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
+          extensions: intl
 
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Validate composer.json and composer.lock
-        run: composer validate
+      - name: Use latest Composer
+        run: composer self-update
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Create composer cache directory
+        run: mkdir -p ${{ steps.composer-cache.outputs.dir }}
+
+      - name: Cache composer dependencies
+        uses: actions/cache@v2.1.4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.json') }}
+          restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer update --ansi --no-interaction
 
       - name: Run test suite
         run: composer run-script test
