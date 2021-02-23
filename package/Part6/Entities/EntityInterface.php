@@ -17,9 +17,4 @@ interface EntityInterface
      * @param string $name
      */
     public function __set(string $name, $value): void;
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function toArray(): array;
 }

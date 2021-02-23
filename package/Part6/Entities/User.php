@@ -19,9 +19,9 @@ final class User implements EntityInterface
     private UserId $id;
     private UserName $name;
 
-    public function __construct(UserName $name)
+    public function __construct(UserName $name, ?UserId $user_id = null)
     {
-        $this->id = new UserId(str_replace('.', '-', uniqid('', true)));
+        $this->id = $user_id ?? new UserId(str_replace('.', '-', uniqid('', true)));
         $this->name = $name;
     }
 
@@ -29,14 +29,6 @@ final class User implements EntityInterface
     {
         $this->id = $user_id;
         $this->name = $name;
-    }
-
-    /**
-     * @return array<string, UserId|UserName>
-     */
-    public function toArray(): array
-    {
-        return get_object_vars($this);
     }
 
     public function changeUserName(UserName $name): void
