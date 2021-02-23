@@ -52,14 +52,14 @@ final class UserTest extends DBTestCase
     {
         $user_id = 'z2020';
         fake(Models\User::class, [
-            'id' => $user_id,
+            'user_id' => $user_id,
         ]);
         $actual = $this->repository->findByUserId(new ValueObjects\UserId($user_id));
 
         if ($actual instanceof Entities\User) {
             parent::assertSame($user_id, $actual->id->value);
         } else {
-            parent::assertFalse(false, 'テストが落ちています');
+            parent::assertFalse(true, 'テストが落ちています');
         }
     }
 
@@ -88,7 +88,7 @@ final class UserTest extends DBTestCase
         if ($actual instanceof Entities\User) {
             parent::assertSame($name, $actual->name->value);
         } else {
-            parent::assertFalse(false, 'テストが落ちています');
+            parent::assertFalse(true, 'テストが落ちています');
         }
     }
 
