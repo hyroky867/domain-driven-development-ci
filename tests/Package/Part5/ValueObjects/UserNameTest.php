@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Package\Part4\ValueObjects;
+namespace Tests\Package\Part5\ValueObjects;
 
 use InvalidArgumentException;
-use Package\Part4\ValueObjects\UserName;
+use Package\Part5\ValueObjects\UserName;
 use Tests\PHPUnitTestCase;
 
 final class UserNameTest extends PHPUnitTestCase

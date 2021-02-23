@@ -65,7 +65,7 @@ final class UserTest extends DBTestCase
      */
     public function find_レコードが存在しない場合、nullが返るべき(): void
     {
-        $name = new ValueObjects\UserName('ジャイロ・ツェペリ');
+        $name = new ValueObjects\UserName('ジャイロ');
         $actual = $this->repository->find($name);
 
         parent::assertNull($actual);
