@@ -11,7 +11,7 @@ use Package\ReadOnlyTrait;
  * @property-read string $name
  * @property-read string $mail_address
  */
-final class Update
+final class UpdateInfo
 {
     use ReadOnlyTrait;
 
