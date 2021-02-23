@@ -21,6 +21,7 @@ final class User implements UserInterface
         $this->model->save([
             'user_id' => $user->id->value,
             'name' => $user->name->value,
+            'mail_address' => $user->mail_address->value,
         ]);
     }
 
@@ -32,7 +33,8 @@ final class User implements UserInterface
         if ($result instanceof \App\Entities\User) {
             return new Entities\User(
                 new ValueObjects\UserName($result->name),
-                new ValueObjects\UserId($result->user_id)
+                new ValueObjects\UserId($result->user_id),
+                new ValueObjects\MailAddress($result->mail_address)
             );
         }
         return null;
@@ -46,7 +48,8 @@ final class User implements UserInterface
         if ($result instanceof \App\Entities\User) {
             return new Entities\User(
                 new ValueObjects\UserName($result->name),
-                new ValueObjects\UserId($result->user_id)
+                new ValueObjects\UserId($result->user_id),
+                new ValueObjects\MailAddress($result->mail_address),
             );
         }
         return null;

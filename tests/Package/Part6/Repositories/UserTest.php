@@ -29,16 +29,19 @@ final class UserTest extends DBTestCase
     {
         $user_id = 'hogehoge';
         $name = '承太郎';
+        $mail_address = 'jotaro@example.com';
 
         $user = new Entities\User(
             new ValueObjects\UserName($name),
             new ValueObjects\UserId($user_id),
+            new ValueObjects\MailAddress($mail_address),
         );
 
         $this->repository->save($user);
         parent::seeInDatabase('users', [
             'user_id' => $user_id,
             'name' => $name,
+            'mail_address' => $mail_address,
         ]);
     }
 
