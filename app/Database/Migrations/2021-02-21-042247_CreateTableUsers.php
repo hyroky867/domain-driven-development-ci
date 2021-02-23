@@ -16,12 +16,13 @@ class CreateTableUsers extends Migration
                 'auto_increment' => true,
             ],
             'user_id' => [
-                'type' => 'TEXT',
+                'type' => 'VARCHAR',
+                'constraint' => '128',
                 'null' => false,
             ],
             'name' => [
                 'type' => 'VARCHAR',
-                'constraint' => '4',
+                'constraint' => '20',
                 'null' => false,
             ],
         ]);
