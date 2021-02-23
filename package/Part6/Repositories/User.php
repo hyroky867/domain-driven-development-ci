@@ -55,12 +55,9 @@ final class User implements UserInterface
         return null;
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
-     * @param Entities\User $user
-     */
     public function delete(Entities\User $user): void
     {
-        echo $user->name->value;
+        $this->model->where('user_id', $user->id->value)
+            ->delete();
     }
 }

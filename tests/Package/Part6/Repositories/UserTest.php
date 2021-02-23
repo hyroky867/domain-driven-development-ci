@@ -102,4 +102,28 @@ final class UserTest extends DBTestCase
 
         parent::assertNull($actual);
     }
+
+    /**
+     * @test
+     */
+    public function delete(): void
+    {
+        $user_id = 'z2020';
+        fake(Entities\User::class, [
+            'user_id' => $user_id,
+        ]);
+        parent::seeInDatabase('users', [
+            'user_id' => $user_id,
+        ]);
+
+        $user = new Entities\User(
+            new ValueObjects\UserName('hoge'),
+            new ValueObjects\UserId($user_id)
+        );
+        $this->repository->delete($user);
+
+        parent::dontSeeInDatabase('users', [
+            'user_id' => $user_id,
+        ]);
+    }
 }
