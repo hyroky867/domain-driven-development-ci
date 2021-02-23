@@ -25,6 +25,11 @@ class CreateTableUsers extends Migration
                 'constraint' => '20',
                 'null' => false,
             ],
+            'mail_address' => [
+                'type' => 'VARCHAR',
+                'constraint' => '255',
+                'null' => true,
+            ],
         ]);
         $this->forge->addPrimaryKey('id');
         $this->forge->createTable('users');
