@@ -52,4 +52,24 @@ final class UserTest extends PHPUnitTestCase
         $user->changeUserName(new ValueObjects\UserName($name));
         parent::assertSame($name, $user->name->value);
     }
+
+    /**
+     * @test
+     */
+    public function changeMailAddress(): void
+    {
+        $user_name = new ValueObjects\UserName('仗世文');
+        $mail_address = 'jojo@example.com';
+        $user = new Entities\User(
+            $user_name,
+            null,
+            new ValueObjects\MailAddress($mail_address)
+        );
+
+        $user->changeMailAddress(new ValueObjects\MailAddress('hoge@example.com'));
+        parent::assertNotSame($mail_address, $user->mail_address->value);
+
+        $user->changeMailAddress(new ValueObjects\MailAddress($mail_address));
+        parent::assertSame($mail_address, $user->mail_address->value);
+    }
 }
