@@ -12,6 +12,4 @@ interface UserInterface
     public function save(Entities\User $user): void;
 
     public function find(ValueObjects\UserName $id): ?Entities\User;
-
-    public function exists(Entities\User $user): bool;
 }
