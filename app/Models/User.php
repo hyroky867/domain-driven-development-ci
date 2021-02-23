@@ -19,6 +19,7 @@ class User extends Model
     protected $allowedFields = [
         'user_id',
         'name',
+        'mail_address',
     ];
 
     /**
@@ -30,6 +31,7 @@ class User extends Model
         return [
             'user_id' => $faker->uuid,
             'name' => "{$faker->firstName}_{$faker->lastName}",
+            'mail_address' => $faker->safeEmail,
         ];
     }
 }
