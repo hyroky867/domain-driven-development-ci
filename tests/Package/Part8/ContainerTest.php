@@ -274,15 +274,6 @@ final class ContainerTest extends PHPUnitTestCase
         $this->container->alias(Fixtures\Classes\ClassA::class, Fixtures\Classes\ClassA::class);
     }
 
-//    /**
-//     * @test
-//     */
-//    public function it_should_allow_creation_of_a_globally_available_instance(): void
-//    {
-//        $instance = Container::getInstance();
-//        parent::assertSame(spl_object_hash($instance), spl_object_hash(Container::getInstance()));
-//    }
-
     /**
      * @test
      */
@@ -364,18 +355,6 @@ final class ContainerTest extends PHPUnitTestCase
      */
     public function it_allows_array_set_and_access(): void
     {
-        // set value - bind
-        $this->container[Fixtures\Interfaces\Contract1::class] = Fixtures\Classes\Class1::class;
-        // access value - make
-        parent::assertInstanceOf(Fixtures\Classes\Class1::class, $this->container[Fixtures\Interfaces\Contract1::class]);
-    }
-
-    /**
-     * @test
-     */
-    public function it_allows_array_un_set(): void
-    {
-        parent::expectException(Exception::class);
         // set value - bind
         $this->container[Fixtures\Interfaces\Contract1::class] = Fixtures\Classes\Class1::class;
         // access value - make

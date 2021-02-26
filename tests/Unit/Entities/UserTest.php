@@ -22,7 +22,7 @@ final class UserTest extends PHPUnitTestCase
             'name' => $name,
         ]);
 
-        $this->assertSame($user_id, $actual->user_id);
-        $this->assertSame($name, $actual->name);
+        parent::assertSame($user_id, $actual->user_id);
+        parent::assertSame($name, $actual->name);
     }
 }
