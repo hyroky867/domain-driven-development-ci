@@ -19,11 +19,6 @@ use ReflectionParameter;
  */
 class Container implements ArrayAccess
 {
-//    /**
-//     * @var self
-//     */
-//    protected static $instance;
-
     /**
      * @var array<string, class-string>
      */
@@ -38,15 +33,6 @@ class Container implements ArrayAccess
      * @var array<string, object|string>
      */
     protected array $instances = [];
-
-//    public static function getInstance(): self
-//    {
-//        if (static::$instance === null) {
-//            static::$instance = new static();
-//        }
-//
-//        return static::$instance ?: new static();
-//    }
 
     /**
      * @param class-string $abstract
