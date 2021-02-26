@@ -8,6 +8,8 @@ use CodeIgniter\Test\CIDatabaseTestCase;
 
 class DBTestCase extends CIDatabaseTestCase
 {
+    protected $migrateOnce = true;
+
     /**
      * マイグレーションファイルは app 配下を見るように
      *
