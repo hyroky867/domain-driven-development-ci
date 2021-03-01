@@ -18,7 +18,7 @@ final class Circle implements EntityInterface
 {
     use ReadOnlyTrait;
 
-    public const MAX_MEMBER = 29;
+    public const MAX_MEMBER = 30;
 
     private ValueObjects\Circle\CircleId $id;
     private ValueObjects\Circle\Name $name;
@@ -48,7 +48,7 @@ final class Circle implements EntityInterface
 
     public function isFull(): bool
     {
-        return count($this->members) >= self::MAX_MEMBER;
+        return $this->countMembers() >= self::MAX_MEMBER;
     }
 
     public function join(User $user): void
@@ -65,5 +65,10 @@ final class Circle implements EntityInterface
         if ($this->name->value !== $name->value) {
             $this->name = $name;
         }
+    }
+
+    public function countMembers(): int
+    {
+        return count($this->members) + 1;
     }
 }
